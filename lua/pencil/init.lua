@@ -42,7 +42,7 @@ function M.create_toggle(...)
         for i, v in ipairs(keys) do
             if M.active_scheme == M.get(v).name then
                 local next_index = math.fmod(i, keys_n) + 1
-                M.apply(keys[next_index].name)
+                M.apply(keys[next_index])
                 break
             end
         end
@@ -61,8 +61,8 @@ function M.get(key)
     return M.schemes[key]
 end
 
-function M.apply(scheme)
-    local s = M.get(scheme)
+function M.apply(key)
+    local s = M.get(key)
     M.active_scheme = s.name
     vim.cmd.colorscheme(M.active_scheme)
 
