@@ -3,15 +3,20 @@ local M = {
     active_scheme = "default",
 }
 
-function M.create_toggle()
+function M.create_toggle(...)
+    local keys = { ... }
     return function()
         assert(M.active_scheme, "No active color scheme set")
 
-        local keys = {}
+        if type(next(keys)) == "nil" then
+            for k, _ in pairs(M.schemes) do
+                table.insert(keys, k)
+            end
+        end
+
         local schemes_n = 0;
-        for k, _ in pairs(M.schemes) do
+        for _, _ in pairs(M.schemes) do
             schemes_n = schemes_n + 1
-            table.insert(keys, k)
         end
 
         for i, v in ipairs(keys) do
