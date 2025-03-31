@@ -13,10 +13,6 @@ function M.create_toggle(...)
     return function()
         assert(M.active_scheme, "No active scheme")
 
-        local keys_n = table.maxn(keys)
-        if keys_n == 0 then
-            return
-        end
 
         if type(next(M.config.toggle_targets)) ~= "nil" then
             keys = M.config.toggle_targets
@@ -24,6 +20,11 @@ function M.create_toggle(...)
             for k, _ in pairs(M.schemes) do
                 table.insert(keys, k)
             end
+        end
+
+        local keys_n = table.maxn(keys)
+        if keys_n == 0 then
+            return
         end
 
         if keys[M.active_scheme] == nil then
