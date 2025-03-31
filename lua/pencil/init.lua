@@ -14,7 +14,7 @@ function M.create_toggle(...)
         assert(M.active_scheme, "No active scheme")
 
 
-        if type(next(M.config.toggle_targets)) ~= "nil" then
+        if M.config.toggle_targets and type(next(M.config.toggle_targets)) ~= "nil" then
             keys = M.config.toggle_targets
         elseif type(next(keys)) == "nil" then
             for k, _ in pairs(M.schemes) do
