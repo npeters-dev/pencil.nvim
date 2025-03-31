@@ -11,8 +11,10 @@ end
 function M.create_toggle(...)
     local keys = { ... }
     return function()
-        if M.config.default == nil or M.schemes[M.config.default] == nil then
-            vim.cmd.colorscheme("default")
+        assert(M.active_scheme, "No active scheme")
+
+        local keys_n = table.maxn(keys)
+        if keys_n == 0 then
             return
         end
 
@@ -24,14 +26,14 @@ function M.create_toggle(...)
             end
         end
 
-        local schemes_n = 0;
-        for _, _ in pairs(keys) do
-            schemes_n = schemes_n + 1
+        if keys[M.active_scheme] == nil then
+            M.apply(keys[1])
+            return
         end
 
         for i, v in ipairs(keys) do
             if M.active_scheme == M.get(v) then
-                local next_index = math.fmod(i, schemes_n) + 1
+                local next_index = math.fmod(i, keys_n) + 1
                 M.apply(keys[next_index])
                 break
             end
