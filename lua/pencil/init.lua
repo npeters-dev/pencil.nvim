@@ -38,6 +38,9 @@ end
 
 function M.set(key, scheme)
     M.schemes[key] = scheme
+    if M.config.default == key then
+        M.apply(key)
+    end
 end
 
 function M.get(key)
