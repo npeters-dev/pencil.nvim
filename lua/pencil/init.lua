@@ -27,7 +27,14 @@ function M.create_toggle(...)
             return
         end
 
-        if keys[M.active_scheme] == nil then
+        local is_active_registered = false
+        for _, v in ipairs(keys) do
+            if M.active_scheme == M.get(v) then
+                is_active_registered = true
+                break
+            end
+        end
+        if ~is_active_registered then
             M.apply(keys[1])
             return
         end
