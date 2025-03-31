@@ -11,7 +11,10 @@ end
 function M.create_toggle(...)
     local keys = { ... }
     return function()
-        assert(M.active_scheme, "No active color scheme set")
+        if M.config.default == nil or M.schemes[M.config.default] == nil then
+            vim.cmd.colorscheme("default")
+            return
+        end
 
         if type(next(M.config.toggle_targets)) ~= "nil" then
             keys = M.config.toggle_targets
