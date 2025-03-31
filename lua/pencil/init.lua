@@ -15,7 +15,7 @@ function M.create_toggle(...)
         end
 
         local schemes_n = 0;
-        for _, _ in pairs(M.schemes) do
+        for _, _ in pairs(keys) do
             schemes_n = schemes_n + 1
         end
 
