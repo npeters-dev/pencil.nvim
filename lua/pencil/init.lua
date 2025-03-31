@@ -29,7 +29,7 @@ function M.create_toggle(...)
 
         local is_active_registered = false
         for _, v in ipairs(keys) do
-            if M.active_scheme == M.get(v).name then
+            if M.active_scheme == v then
                 is_active_registered = true
                 break
             end
@@ -40,7 +40,7 @@ function M.create_toggle(...)
         end
 
         for i, v in ipairs(keys) do
-            if M.active_scheme == M.get(v).name then
+            if M.active_scheme == v then
                 local next_index = math.fmod(i, keys_n) + 1
                 M.apply(keys[next_index])
                 break
@@ -63,14 +63,14 @@ end
 
 function M.apply(key)
     local s = M.get(key)
-    M.active_scheme = s.name
-    vim.cmd.colorscheme(M.active_scheme)
+    M.active_scheme = key
+    vim.cmd.colorscheme(s.name)
 
     if s.on_apply then
         s.on_apply()
     end
 
-    print("Scheme: " .. M.active_scheme)
+    print("Scheme: " .. M.active_scheme .. " (" .. s.name .. ")")
 end
 
 vim.api.nvim_create_user_command("Scheme", function(opts)
