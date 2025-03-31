@@ -1,14 +1,21 @@
 local M = {
+    config = {},
     schemes = {},
     active_scheme = "default",
 }
+
+M.setup = function(config)
+    M.config = config
+end
 
 function M.create_toggle(...)
     local keys = { ... }
     return function()
         assert(M.active_scheme, "No active color scheme set")
 
-        if type(next(keys)) == "nil" then
+        if type(next(M.config.toggle_targets)) ~= "nil" then
+            keys = M.config.toggle_targets
+        elseif type(next(keys)) == "nil" then
             for k, _ in pairs(M.schemes) do
                 table.insert(keys, k)
             end
