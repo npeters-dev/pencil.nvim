@@ -34,7 +34,7 @@ function M.create_toggle(...)
                 break
             end
         end
-        if ~is_active_registered then
+        if not is_active_registered then
             M.apply(keys[1])
             return
         end
